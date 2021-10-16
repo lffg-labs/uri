@@ -4,26 +4,16 @@ use std::io::{stdin, stdout, BufRead, Write};
 
 fn sln(input: impl BufRead, output: &mut impl Write) -> Result<(), Box<dyn Error>> {
     let mut dict = BTreeSet::<String>::new();
-    for line in input.lines() {
-        let mut control: Option<String> = None;
-        for char in line?.chars().map(|char| char.to_ascii_lowercase()) {
+    for mut line in input.lines().map(Result::unwrap) {
+        line += " ";
+        let mut word = String::new();
+        for char in line.chars() {
             if char.is_ascii_alphabetic() {
-                match control.as_mut() {
-                    Some(string) => string.push(char),
-                    None => control = Some(char.to_string()),
-                }
-            } else {
-                match control {
-                    Some(string) => {
-                        dict.insert(string);
-                        control = None;
-                    }
-                    None => continue,
-                }
+                word.push(char.to_ascii_lowercase());
+            } else if word != "" {
+                dict.insert(word);
+                word = String::new();
             }
-        }
-        if let Some(string) = control {
-            dict.insert(string);
         }
     }
     for word in dict {
