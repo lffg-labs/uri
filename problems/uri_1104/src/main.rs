@@ -14,16 +14,16 @@ fn sln(input: impl BufRead, output: &mut impl Write) -> Result<(), Box<dyn Error
     let mut lines = input.lines();
     loop {
         match lines.next() {
-            Some(string) if string.as_ref().unwrap() == "0 0" => return Ok(()),
-            Some(_) => (),
+            Some(Ok(string)) if string == "0 0" => return Ok(()),
+            Some(Ok(_)) => (),
+
+            Some(Err(err)) => return Err(Box::new(err)),
             None => unreachable!(),
         };
 
         let set_a = parse_line(lines.next().unwrap()?)?;
         let set_b = parse_line(lines.next().unwrap()?)?;
 
-        // `set_a` can give to `b` the cards which `set_b` does not have.
-        // `set_b` can give to `a` the cards which `set_a` does not have.
         let a_give_count = (&set_a - &set_b).len();
         let b_give_count = (&set_b - &set_a).len();
 
