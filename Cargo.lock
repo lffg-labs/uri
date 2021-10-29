@@ -21,3 +21,7 @@ version = "0.1.0"
 [[package]]
 name = "uri_1251"
 version = "0.1.0"
+
+[[package]]
+name = "uri_1445"
+version = "0.1.0"
