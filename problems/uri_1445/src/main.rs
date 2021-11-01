@@ -38,8 +38,9 @@ fn sln(input: impl BufRead, output: &mut impl Write) -> Result<(), Box<dyn Error
 
         let mut map = parse_line_relations(&line);
         let mut seen = HashSet::<u32>::new();
+        seen.insert(1);
+
         let mut stack = vec![1];
-        let mut count = 1;
 
         while let Some(curr) = stack.pop() {
             while let Some(guests) = map.remove(&curr) {
@@ -49,14 +50,13 @@ fn sln(input: impl BufRead, output: &mut impl Write) -> Result<(), Box<dyn Error
                     });
                     if !seen.contains(&guest) {
                         seen.insert(guest);
-                        count += 1;
                     }
                     stack.push(guest);
                 }
             }
         }
 
-        writeln!(output, "{}", count)?;
+        writeln!(output, "{}", seen.len())?;
     }
 }
 
