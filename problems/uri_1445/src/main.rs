@@ -45,12 +45,7 @@ fn sln(input: impl BufRead, output: &mut impl Write) -> Result<(), Box<dyn Error
         while let Some(curr) = stack.pop() {
             while let Some(guests) = map.remove(&curr) {
                 for guest in guests {
-                    map.entry(guest).and_modify(|set| {
-                        set.remove(&curr);
-                    });
-                    if !seen.contains(&guest) {
-                        seen.insert(guest);
-                    }
+                    seen.insert(guest);
                     stack.push(guest);
                 }
             }
