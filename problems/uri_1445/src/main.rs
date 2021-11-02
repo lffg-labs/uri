@@ -14,7 +14,7 @@ fn parse_line_relations(line: &str) -> HashMap<u32, HashSet<u32>> {
         .split_ascii_whitespace()
         .map(|str| str[1..str.len() - 1].split(',').map(|n| n.parse().unwrap()))
         .map(|mut iter| (iter.next().unwrap(), iter.next().unwrap()))
-        .collect::<Vec<_>>();
+        .collect();
 
     let mut map = HashMap::new();
     for (a, b) in relations {
@@ -34,9 +34,10 @@ fn sln(input: impl BufRead, output: &mut impl Write) -> Result<(), Box<dyn Error
             Some(Err(err)) => return Err(Box::new(err)),
             None => unreachable!(),
         };
-        let line = lines.next().unwrap()?;
 
+        let line = lines.next().unwrap()?;
         let mut map = parse_line_relations(&line);
+
         let mut seen = HashSet::<u32>::new();
         seen.insert(1);
 
