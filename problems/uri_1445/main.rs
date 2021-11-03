@@ -44,7 +44,7 @@ fn sln(input: impl BufRead, output: &mut impl Write) -> Result<(), Box<dyn Error
         let mut stack = vec![1];
 
         while let Some(curr) = stack.pop() {
-            while let Some(guests) = map.remove(&curr) {
+            if let Some(guests) = map.remove(&curr) {
                 for guest in guests {
                     seen.insert(guest);
                     stack.push(guest);
