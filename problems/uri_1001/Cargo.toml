@@ -1,0 +1,8 @@
+[package]
+name = "uri_1001"
+version = "0.1.0"
+edition = "2018"
+
+[[bin]]
+name = "uri_1001"
+path = "main.rs"
