@@ -1,0 +1,8 @@
+[package]
+name = "uri_[[:code:]]"
+version = "0.1.0"
+edition = "2018"
+
+[[bin]]
+name = "uri_[[:code:]]"
+path = "main.rs"
